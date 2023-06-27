@@ -17,11 +17,11 @@ namespace HackerRank
             #endregion
 
             //Work here!
+            int[] key = {40,50,60};
+            int[] drives = {5,8,12};
 
-
-
-
-
+            List<int> ranked = new List<int>() { 1,3,1,3,1,4,1,3,2,5,5,5,5,1,1,5,5,1,5,2,5,5,5,5,5};
+            Console.WriteLine(Implementation.UtopianTree(5));
 
 
             #region Default

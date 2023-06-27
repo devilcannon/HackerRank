@@ -98,11 +98,37 @@ namespace HackerRank.Algorithms
          *  1. INTEGER_ARRAY a
          *  2. INTEGER_ARRAY b
          */
-        public static int GetTotalX(List<int> a, List<int> b)
+        public static int GetTotalX(int[] a, int[] b)
         {
-            int min = a[0], max = b[^1];
-            //Missing!
-            return 0;
+            int count = 0;
+            for (int i = a[^1]; i <= b[0]; i++)
+            {
+                bool isFactor = true;
+                foreach (int num in a)
+                {
+                    if (i % num != 0)
+                    {
+                        isFactor = false;
+                        break;
+                    }
+                }
+                if (isFactor)
+                {
+                    foreach (int num in b)
+                    {
+                        if (num % i != 0)
+                        {
+                            isFactor = false;
+                            break;
+                        }
+                    }
+                }
+                if (isFactor)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         /*
@@ -227,6 +253,286 @@ namespace HackerRank.Algorithms
             return result;
         }
 
-        
+        /*
+         * Complete the 'divisibleSumPairs' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts following parameters:
+         *  1. INTEGER n
+         *  2. INTEGER k
+         *  3. INTEGER_ARRAY ar
+         */
+
+        public static int DivisibleSumPairs(int n, int k, List<int> ar)
+        {
+            int count = 0;
+            for (int i = 0; i < ar.Count; i++)
+            {
+                for (int j = i + 1; j < ar.Count; j++)
+                {
+                    if ((ar[i] + ar[j]) % k == 0)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+
+        /*
+         * Complete the 'dayOfProgrammer' function below.
+         *
+         * The function is expected to return a STRING.
+         * The function accepts INTEGER year as parameter.
+         */
+
+        public static string DayOfProgrammer(int year)
+        {
+            if (year == 1918)
+            {
+                return "26.09.1918";
+            }
+            else if ((year < 1918 && year % 4 == 0) || (year > 1918 && (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))))
+            {
+                return "12.09." + year;
+            }
+            else
+            {
+                return "13.09." + year;
+            }
+        }
+
+        /*
+         * Complete the 'pageCount' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts following parameters:
+         *  1. INTEGER n
+         *  2. INTEGER p
+         */
+
+        public static int PageCount(int n, int p)
+        {
+            int fromFront = p / 2;
+            int fromBack = n / 2 - p / 2;
+            return Math.Min(fromFront, fromBack);
+        }
+
+        /*
+         * Complete the getMoneySpent function below.
+         */
+        public static int GetMoneySpent(int[] keyboards, int[] drives, int b)
+        {
+            int maxSpent = -1;
+            for (int i = 0; i < keyboards.Length; i++)
+            {
+                for (int j = 0; j < drives.Length; j++)
+                {
+                    int total = keyboards[i] + drives[j];
+                    if (total <= b && total > maxSpent)
+                    {
+                        maxSpent = total;
+                    }
+                }
+            }
+            return maxSpent;
+        }
+
+        // Complete the catAndMouse function below.
+        public static string CatAndMouse(int x, int y, int z)
+        {
+            int catADistance = Math.Abs(x - z);
+            int catBDistance = Math.Abs(y - z);
+            if (catADistance < catBDistance)
+            {
+                return "Cat A";
+            }
+            else if (catBDistance < catADistance)
+            {
+                return "Cat B";
+            }
+            else
+            {
+                return "Mouse C";
+            }
+        }
+
+        /*
+         * Complete the 'formingMagicSquare' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts 2D_INTEGER_ARRAY s as parameter.
+         */
+        public static int FormingMagicSquare(List<List<int>> s)
+        {
+            int[][][] possibleMagicSquares = new int[][][]
+            {
+                new int[][] { new int[] { 8, 1, 6 }, new int[] { 3, 5, 7 }, new int[] { 4, 9, 2 } },
+                new int[][] { new int[] { 6, 1, 8 }, new int[] { 7, 5, 3 }, new int[] { 2, 9, 4 } },
+                new int[][] { new int[] { 4, 9, 2 }, new int[] { 3, 5, 7 }, new int[] { 8, 1, 6 } },
+                new int[][] { new int[] { 2, 9, 4 }, new int[] { 7, 5, 3 }, new int[] { 6, 1, 8 } },
+                new int[][] { new int[] { 8, 3, 4 }, new int[] { 1, 5, 9 }, new int[] { 6, 7, 2 } },
+                new int[][] { new int[] { 4, 3, 8 }, new int[] { 9, 5, 1 }, new int[] { 2, 7, 6 } },
+                new int[][] { new int[] { 6, 7, 2 }, new int[] { 1,5 ,9},new int[]{8 ,3 ,4}},
+                new int[][]{new int[]{2 ,7 ,6},new int[]{9 ,5 ,1},new int[]{4 ,3 ,8}}
+            };
+            int minCost = Int32.MaxValue;
+            for (int i = 0; i < possibleMagicSquares.Length; i++)
+            {
+                int currentCost = 0;
+                for (int j = 0; j < possibleMagicSquares[i].Length; j++)
+                {
+                    for (int k = 0; k < possibleMagicSquares[i][j].Length; k++)
+                    {
+                        currentCost += Math.Abs(s[j][k] - possibleMagicSquares[i][j][k]);
+                    }
+                }
+                minCost = Math.Min(minCost, currentCost);
+            }
+            return minCost;
+        }
+
+        /*
+         * Complete the 'pickingNumbers' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts INTEGER_ARRAY a as parameter.
+         */
+        public static int PickingNumbers(List<int> a)
+        {
+            int maxCount = 0;
+            for (int i = 0; i < a.Count; i++)
+            {
+                int currentCount = 0;
+                for (int j = 0; j < a.Count; j++)
+                {
+                    if (a[j] == a[i] || a[j] == a[i] + 1)
+                    {
+                        currentCount++;
+                    }
+                }
+                if (currentCount > maxCount)
+                {
+                    maxCount = currentCount;
+                }
+            }
+            return maxCount;
+        }
+
+        /*
+         * Complete the 'climbingLeaderboard' function below.
+         *
+         * The function is expected to return an INTEGER_ARRAY.
+         * The function accepts following parameters:
+         *  1. INTEGER_ARRAY ranked
+         *  2. INTEGER_ARRAY player
+         */
+        public static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
+        {
+            int[] ranks = new int[player.Count];
+            int[] distinctScores = ranked.Distinct().ToArray();
+            int i = distinctScores.Length - 1;
+            for (int j = 0; j < player.Count; j++)
+            {
+                while (i >= 0)
+                {
+                    if (player[j] >= distinctScores[i])
+                    {
+                        i--;
+                    }
+                    else
+                    {
+                        ranks[j] = i + 2;
+                        break;
+                    }
+                }
+                if (i < 0)
+                {
+                    ranks[j] = 1;
+                }
+            }
+            return ranks.ToList();
+        }
+
+        /*
+         * Complete the 'hurdleRace' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts following parameters:
+         *  1. INTEGER k
+         *  2. INTEGER_ARRAY height
+         */
+        public static int HurdleRace(int k, List<int> height)
+        {
+            int maxHurdle = height.Max();
+            if (maxHurdle > k)
+            {
+                return maxHurdle - k;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /*
+         * Complete the 'designerPdfViewer' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts following parameters:
+         *  1. INTEGER_ARRAY h
+         *  2. STRING word
+         */
+        public static int DesignerPdfViewer(List<int> h, string word)
+        {
+            int maxHeight = 0;
+            foreach (char c in word)
+            {
+                int index = c - 'a';
+                if (h[index] > maxHeight)
+                    maxHeight = h[index];
+            }
+            return maxHeight * word.Length;
+        }
+
+        /*
+         * Complete the 'utopianTree' function below.
+         *
+         * The function is expected to return an INTEGER.
+         * The function accepts INTEGER n as parameter.
+         */
+        public static int UtopianTree(int n)
+        {
+            int height = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                if (i % 2 == 1)
+                    height *= 2;
+                else
+                    height += 1;
+            }
+            return height;
+        }
+
+        /*
+         * Complete the 'angryProfessor' function below.
+         *
+         * The function is expected to return a STRING.
+         * The function accepts following parameters:
+         *  1. INTEGER k
+         *  2. INTEGER_ARRAY a
+         */
+        public static string AngryProfessor(int k, List<int> a)
+        {
+            int onTimeStudents = 0;
+            foreach (int arrivalTime in a)
+            {
+                if (arrivalTime <= 0)
+                    onTimeStudents++;
+            }
+            return onTimeStudents < k ? "YES" : "NO";
+        }
+
+
     }
 }
